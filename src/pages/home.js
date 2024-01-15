@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../index.css'
 import Header from '../components/layout/Header'
 import { Link } from 'react-router-dom'
@@ -6,21 +6,8 @@ import { Link } from 'react-router-dom'
 const Home = () => {
 
 
-  const userData = []
-
-  const data = localStorage.getItem("allData")
-
-  console.log(typeof data, "my data");
-
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i)
-    const item = localStorage.getItem(key)
-
-    console.log(key, item);
-    
-  }
-
-
+  const userData = JSON.parse(localStorage.getItem('data')) || [];
+  console.log(userData);
 
 
   return (
@@ -36,17 +23,25 @@ const Home = () => {
       <table className='bg-slate-600 text-lime-50 w-4/5 mt-20 border ms-10'>
         <thead>
           <tr>
-            <th className='p-4 border'>Name</th>
+            <th className='p-4 border'>s.no</th>
+            <th className='p-4 border'>First Name</th>
+            <th className='p-4 border'>Last Name</th>
             <th className='p-4 border'>Email</th>
             <th className='p-4 border'>Message</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className='p-4 border'>The Sliding</td>
-            <td className='p-4 border'>Malcolm Lockyer</td>
-            <td className='p-4 border'>1961</td>
+          {
+            userData?.map((item, index)=>(
+          <tr key={item?.id}>
+            <td className='p-4 border'>{item?.id}</td>
+            <td className='p-4 border'>{item?.firstName}</td>
+            <td className='p-4 border'>{item?.lastName}</td>
+            <td className='p-4 border'>{item?.email}</td>
+            <td className='p-4 border'>{item?.message}</td>
           </tr>
+            ))
+          }
         </tbody>
       </table>
       </div>
